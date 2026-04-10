@@ -12,7 +12,6 @@ import {
   Users,
   ChevronRight,
 } from "lucide-react";
-import { LANGUAGES } from "@/lib/languages";
 
 const FEATURES = [
   {
@@ -67,7 +66,6 @@ const HOW_IT_WORKS = [
 ];
 
 export default function HomePage() {
-  const displayedLangs = LANGUAGES.slice(0, 12);
 
   return (
     <div className="min-h-screen" style={{ background: "#F6F4EE" }}>
@@ -121,25 +119,6 @@ export default function HomePage() {
               <p className="text-xs mt-1" style={{ color: "#7A8C7E" }}>{stat.label}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Language ticker */}
-      <section className="border-y py-5 overflow-hidden" style={{ borderColor: "#D6D1C4", background: "#EDEAE0" }}>
-        <div className="flex gap-3 px-6 flex-wrap max-w-6xl mx-auto">
-          {displayedLangs.map((lang) => (
-            <div
-              key={lang.code}
-              className="flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium border"
-              style={{ background: "#FDFCF8", borderColor: "#D6D1C4", color: "#1C2B1E" }}
-            >
-              <span>{lang.flag}</span>
-              <span>{lang.name}</span>
-            </div>
-          ))}
-          <div className="flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium" style={{ background: "#1C2B1E", color: "#D0E4D8" }}>
-            +8 more
-          </div>
         </div>
       </section>
 

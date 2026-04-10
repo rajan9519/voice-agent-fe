@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { Mic, MicOff, ArrowLeftRight, Trash2 } from "lucide-react";
+import { Mic, ArrowLeftRight, Trash2 } from "lucide-react";
 import LanguageSelector from "@/app/components/LanguageSelector";
 import Waveform from "@/app/components/Waveform";
 import { LANGUAGES } from "@/lib/languages";
@@ -41,6 +41,8 @@ export default function VoiceAgentPage() {
   const [status, setStatus] = useState<"idle" | "connected" | "error">("idle");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isListening, setIsListening] = useState(false);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+  const sessionTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Refs for audio/WS — mutations here don't need re-renders
   const wsRef = useRef<WebSocket | null>(null);
@@ -218,6 +220,8 @@ export default function VoiceAgentPage() {
 
   // ── Teardown ──────────────────────────────────────────────────
   function teardown() {
+    if (sessionTimerRef.current) { clearInterval(sessionTimerRef.current); sessionTimerRef.current = null; }
+    setSessionSeconds(0);
     workletNodeRef.current?.disconnect();
     workletNodeRef.current = null;
     captureCtxRef.current?.close();
@@ -253,6 +257,8 @@ export default function VoiceAgentPage() {
       wsRef.current = ws;
 
       ws.onopen = () => {
+        setSessionSeconds(0);
+        sessionTimerRef.current = setInterval(() => setSessionSeconds((s) => s + 1), 1000);
         setStatus("connected");
         const src = toBackendLang(fromLang);
         const tgt = toBackendLang(toLang);
@@ -429,54 +435,57 @@ export default function VoiceAgentPage() {
           <div className="space-y-4">
 
             {/* Mic control */}
-            <div
-              className="rounded-2xl p-6 flex flex-col items-center gap-5 border"
-              style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}
-            >
-              <div className="relative">
-                {isListening && (
+            {isActive ? (
+              /* ── Recording state ── */
+              <div
+                className="rounded-2xl p-6 flex flex-col items-center gap-5 border"
+                style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}
+              >
+                <div className="relative">
                   <div
                     className="absolute inset-0 rounded-full scale-110"
                     style={{ background: "rgba(61,107,79,0.15)", animation: "pulse 2s ease-in-out infinite" }}
                   />
-                )}
-                <button
-                  onClick={isActive ? stopSession : startSession}
-                  className="relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-                  style={{
-                    background: isActive ? "#3D6B4F" : "#1C2B1E",
-                    boxShadow: isActive
-                      ? "0 8px 24px rgba(61,107,79,0.35)"
-                      : "0 8px 24px rgba(28,43,30,0.25)",
-                  }}
-                >
-                  {isActive ? (
-                    <MicOff className="w-8 h-8 text-white" />
-                  ) : (
-                    <Mic className="w-8 h-8 text-white" />
-                  )}
-                </button>
-              </div>
+                  <button
+                    onClick={stopSession}
+                    className="relative w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+                    style={{ background: "#3D6B4F", boxShadow: "0 8px 24px rgba(61,107,79,0.35)" }}
+                  >
+                    <div className="w-6 h-6 rounded-md bg-white" />
+                  </button>
+                </div>
 
-              {isListening ? (
                 <Waveform active bars={20} />
-              ) : (
-                <div className="h-10" />
-              )}
 
-              <div className="text-center">
-                <p className="text-sm font-medium" style={{ color: "#1C2B1E" }}>
-                  {isActive ? "Tap to stop" : "Tap to speak"}
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: "#6B7C6D" }}>
-                  {isListening
-                    ? `Speaking in ${fromLangName}`
-                    : isActive
-                    ? "Connecting..."
-                    : "Microphone is ready"}
-                </p>
+                <div className="text-center">
+                  <p className="text-sm font-medium" style={{ color: "#1C2B1E" }}>Tap to stop</p>
+                  <p className="text-xs mt-0.5 tabular-nums" style={{ color: "#6B7C6D" }}>
+                    {`${Math.floor(sessionSeconds / 60)}:${String(sessionSeconds % 60).padStart(2, "0")}`}
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              /* ── Idle state ── */
+              <div
+                className="rounded-2xl p-6 flex flex-col items-center gap-5 border"
+                style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}
+              >
+                <button
+                  onClick={startSession}
+                  className="w-20 h-20 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+                  style={{ background: "#1C2B1E", boxShadow: "0 8px 24px rgba(28,43,30,0.25)" }}
+                >
+                  <Mic className="w-8 h-8 text-white" />
+                </button>
+
+                <div className="h-10" />
+
+                <div className="text-center">
+                  <p className="text-sm font-medium" style={{ color: "#1C2B1E" }}>Tap to speak</p>
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7C6D" }}>Microphone is ready</p>
+                </div>
+              </div>
+            )}
 
             {/* Stats */}
             <div

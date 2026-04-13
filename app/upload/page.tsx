@@ -14,7 +14,7 @@ import {
   X,
 } from "lucide-react";
 import LanguageSelector from "@/app/components/LanguageSelector";
-import { LANGUAGES } from "@/lib/languages";
+import { SOURCE_LANGUAGES, TARGET_LANGUAGES } from "@/lib/languages";
 import clsx from "clsx";
 
 interface AudioFile {
@@ -86,8 +86,8 @@ export default function UploadPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const fromLangName = LANGUAGES.find((l) => l.code === fromLang)?.name ?? fromLang;
-  const toLangName = LANGUAGES.find((l) => l.code === toLang)?.name ?? toLang;
+  const fromLangName = SOURCE_LANGUAGES.find((l) => l.code === fromLang)?.name ?? fromLang;
+  const toLangName = TARGET_LANGUAGES.find((l) => l.code === toLang)?.name ?? toLang;
 
   const swapLanguages = () => {
     setFromLang(toLang);
@@ -220,7 +220,7 @@ export default function UploadPage() {
         {/* Language selector */}
         <div className="rounded-2xl p-5 mb-6 border" style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}>
           <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
-            <LanguageSelector value={fromLang} onChange={setFromLang} label="Audio language" />
+            <LanguageSelector value={fromLang} onChange={setFromLang} languages={SOURCE_LANGUAGES} label="Audio language" />
             <button
               onClick={swapLanguages}
               className="p-2.5 rounded-xl border transition-all mb-0.5 hover:scale-95"
@@ -228,7 +228,7 @@ export default function UploadPage() {
             >
               <ArrowLeftRight className="w-4 h-4" />
             </button>
-            <LanguageSelector value={toLang} onChange={setToLang} label="Translate to" />
+            <LanguageSelector value={toLang} onChange={setToLang} languages={TARGET_LANGUAGES} label="Translate to" />
           </div>
         </div>
 

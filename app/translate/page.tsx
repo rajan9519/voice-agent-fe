@@ -4,13 +4,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { Mic, ArrowLeftRight, Trash2 } from "lucide-react";
 import LanguageSelector from "@/app/components/LanguageSelector";
 import Waveform from "@/app/components/Waveform";
-import { LANGUAGES } from "@/lib/languages";
+import { SOURCE_LANGUAGES, TARGET_LANGUAGES } from "@/lib/languages";
 import clsx from "clsx";
-
-// Convert language code ("en") → backend full name ("english")
-function toBackendLang(code: string): string {
-  return (LANGUAGES.find((l) => l.code === code)?.name ?? code).toLowerCase();
-}
 
 // Fixed defaults — no UI to change these
 const DEFAULTS = {
@@ -36,8 +31,8 @@ interface Message {
 let msgIdCounter = 0;
 
 export default function VoiceAgentPage() {
-  const [fromLang, setFromLang] = useState("en");
-  const [toLang, setToLang] = useState("hi");
+  const [fromLang, setFromLang] = useState("English");
+  const [toLang, setToLang] = useState("Hindi");
   const [status, setStatus] = useState<"idle" | "connected" | "error">("idle");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isListening, setIsListening] = useState(false);
@@ -260,8 +255,8 @@ export default function VoiceAgentPage() {
         setSessionSeconds(0);
         sessionTimerRef.current = setInterval(() => setSessionSeconds((s) => s + 1), 1000);
         setStatus("connected");
-        const src = toBackendLang(fromLang);
-        const tgt = toBackendLang(toLang);
+        const src = fromLang.toLowerCase();
+        const tgt = toLang.toLowerCase();
         ws.send(JSON.stringify({
           type: "session.start",
           config: {
@@ -304,8 +299,8 @@ export default function VoiceAgentPage() {
     setToLang(fromLang);
   };
 
-  const fromLangName = LANGUAGES.find((l) => l.code === fromLang)?.name ?? fromLang;
-  const toLangName   = LANGUAGES.find((l) => l.code === toLang)?.name ?? toLang;
+  const fromLangName = fromLang;
+  const toLangName   = toLang;
 
   const agentMessages = messages.filter((m) => m.role !== "system");
   const lastAgent = [...messages].reverse().find((m) => m.role === "agent" && !m.partial);
@@ -330,7 +325,7 @@ export default function VoiceAgentPage() {
           style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}
         >
           <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-end">
-            <LanguageSelector value={fromLang} onChange={setFromLang} label="Speak in" />
+            <LanguageSelector value={fromLang} onChange={setFromLang} languages={SOURCE_LANGUAGES} label="Speak in" />
             <button
               onClick={swapLanguages}
               disabled={isActive}
@@ -340,7 +335,7 @@ export default function VoiceAgentPage() {
             >
               <ArrowLeftRight className="w-4 h-4" />
             </button>
-            <LanguageSelector value={toLang} onChange={setToLang} label="Respond in" />
+            <LanguageSelector value={toLang} onChange={setToLang} languages={TARGET_LANGUAGES} label="Respond in" />
           </div>
         </div>
 

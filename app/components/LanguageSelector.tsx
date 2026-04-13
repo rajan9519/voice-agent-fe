@@ -2,18 +2,20 @@
 
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Search } from "lucide-react";
-import { LANGUAGES, Language } from "@/lib/languages";
+import { Language } from "@/lib/languages";
 import clsx from "clsx";
 
 interface LanguageSelectorProps {
   value: string;
-  onChange: (code: string) => void;
+  onChange: (name: string) => void;
+  languages: Language[];
   label?: string;
 }
 
 export default function LanguageSelector({
   value,
   onChange,
+  languages,
   label,
 }: LanguageSelectorProps) {
   const [open, setOpen] = useState(false);
@@ -21,9 +23,9 @@ export default function LanguageSelector({
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const selected = LANGUAGES.find((l) => l.code === value) || LANGUAGES[0];
+  const selected = languages.find((l) => l.name === value) || languages[0];
 
-  const filtered = LANGUAGES.filter(
+  const filtered = languages.filter(
     (l) =>
       l.name.toLowerCase().includes(query.toLowerCase()) ||
       l.nativeName.toLowerCase().includes(query.toLowerCase())
@@ -94,17 +96,17 @@ export default function LanguageSelector({
               <button
                 key={lang.code}
                 onClick={() => {
-                  onChange(lang.code);
+                  onChange(lang.name);
                   setOpen(false);
                   setQuery("");
                 }}
                 className="w-full flex items-center gap-3 px-3.5 py-2.5 text-sm transition-colors text-left"
-                style={lang.code === value
+                style={lang.name === value
                   ? { background: "#1C2B1E", color: "#fff" }
                   : { color: "#1C2B1E" }
                 }
-                onMouseEnter={e => { if (lang.code !== value) (e.currentTarget as HTMLElement).style.background = "#EDE9DF"; }}
-                onMouseLeave={e => { if (lang.code !== value) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                onMouseEnter={e => { if (lang.name !== value) (e.currentTarget as HTMLElement).style.background = "#EDE9DF"; }}
+                onMouseLeave={e => { if (lang.name !== value) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
               >
                 <span>{lang.flag}</span>
                 <span className="font-medium">{lang.name}</span>

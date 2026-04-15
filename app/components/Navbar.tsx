@@ -22,7 +22,7 @@ export default function Navbar() {
             <Mic className="w-4 h-4 text-white" />
           </div>
           <span className="font-semibold text-[15px] tracking-tight" style={{ color: "#1C2B1E" }}>
-            LinguaLive
+            Aivimo
           </span>
         </Link>
 
@@ -45,13 +45,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs rounded-full px-3 py-1.5 border" style={{ color: "#6B7C6D", borderColor: "#D6D1C4" }}>
-            <Globe className="w-3.5 h-3.5" />
-            <span>20 languages</span>
-          </div>
         </div>
       </div>
     </nav>

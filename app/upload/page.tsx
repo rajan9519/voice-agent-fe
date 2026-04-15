@@ -50,19 +50,19 @@ function simulateTranscription(
         const samples = [
           {
             original:
-              "Welcome to LinguaLive. This is a demonstration of our audio translation service. We support over twenty languages with high accuracy.",
+              "Welcome to Aivimo. This is a demonstration of our audio translation service. We support over twenty languages with high accuracy.",
             translations: {
-              es: "Bienvenido a LinguaLive. Esta es una demostración de nuestro servicio de traducción de audio. Apoyamos más de veinte idiomas con alta precisión.",
-              fr: "Bienvenue sur LinguaLive. Ceci est une démonstration de notre service de traduction audio. Nous prenons en charge plus de vingt langues avec une grande précision.",
-              de: "Willkommen bei LinguaLive. Dies ist eine Demonstration unseres Audio-Übersetzungsdienstes. Wir unterstützen über zwanzig Sprachen mit hoher Genauigkeit.",
-              ja: "LinguaLiveへようこそ。これは私たちの音声翻訳サービスのデモンストレーションです。高精度で20以上の言語をサポートしています。",
-              zh: "欢迎使用LinguaLive。这是我们音频翻译服务的演示。我们以高精度支持超过二十种语言。",
-              it: "Benvenuto su LinguaLive. Questa è una dimostrazione del nostro servizio di traduzione audio. Supportiamo più di venti lingue con alta precisione.",
-              pt: "Bem-vindo ao LinguaLive. Esta é uma demonstração do nosso serviço de tradução de áudio. Suportamos mais de vinte idiomas com alta precisão.",
-              ru: "Добро пожаловать в LinguaLive. Это демонстрация нашего сервиса аудиоперевода. Мы поддерживаем более двадцати языков с высокой точностью.",
-              ko: "LinguaLive에 오신 것을 환영합니다. 이것은 오디오 번역 서비스의 데모입니다. 높은 정확도로 20개 이상의 언어를 지원합니다.",
-              ar: "مرحباً بك في LinguaLive. هذا عرض توضيحي لخدمة الترجمة الصوتية. ندعم أكثر من عشرين لغة بدقة عالية.",
-              hi: "LinguaLive में आपका स्वागत है। यह हमारी ऑडियो अनुवाद सेवा का प्रदर्शन है। हम उच्च सटीकता के साथ बीस से अधिक भाषाओं का समर्थन करते हैं।",
+              es: "Bienvenido a Aivimo. Esta es una demostración de nuestro servicio de traducción de audio. Apoyamos más de veinte idiomas con alta precisión.",
+              fr: "Bienvenue sur Aivimo. Ceci est une démonstration de notre service de traduction audio. Nous prenons en charge plus de vingt langues avec une grande précision.",
+              de: "Willkommen bei Aivimo. Dies ist eine Demonstration unseres Audio-Übersetzungsdienstes. Wir unterstützen über zwanzig Sprachen mit hoher Genauigkeit.",
+              ja: "Aivimoへようこそ。これは私たちの音声翻訳サービスのデモンストレーションです。高精度で20以上の言語をサポートしています。",
+              zh: "欢迎使用Aivimo。这是我们音频翻译服务的演示。我们以高精度支持超过二十种语言。",
+              it: "Benvenuto su Aivimo. Questa è una dimostrazione del nostro servizio di traduzione audio. Supportiamo più di venti lingue con alta precisione.",
+              pt: "Bem-vindo ao Aivimo. Esta é uma demonstração do nosso serviço de tradução de áudio. Suportamos mais de vinte idiomas com alta precisão.",
+              ru: "Добро пожаловать в Aivimo. Это демонстрация нашего сервиса аудиоперевода. Мы поддерживаем более двадцати языков с высокой точностью.",
+              ko: "Aivimo에 오신 것을 환영합니다. 이것은 오디오 번역 서비스의 데모입니다. 높은 정확도로 20개 이상의 언어를 지원합니다.",
+              ar: "مرحباً بك في Aivimo. هذا عرض توضيحي لخدمة الترجمة الصوتية. ندعم أكثر من عشرين لغة بدقة عالية.",
+              hi: "Aivimo में आपका स्वागत है। यह हमारी ऑडियो अनुवाद सेवा का प्रदर्शन है। हम उच्च सटीकता के साथ बीस से अधिक भाषाओं का समर्थन करते हैं।",
             },
           },
         ];
@@ -387,7 +387,7 @@ export default function UploadPage() {
         {files.length === 0 && (
           <div className="mt-8 grid grid-cols-3 gap-4">
             {[
-              { icon: "🎙️", label: "Speech Recognition", desc: "Industry-leading accuracy for 20+ languages" },
+              { icon: "🎙️", label: "Speech Recognition", desc: "Industry-leading accuracy for 40+ languages" },
               { icon: "⚡", label: "Fast Processing", desc: "Results in seconds for most audio files" },
               { icon: "📥", label: "Export Results", desc: "Download transcripts as text files" },
             ].map((item) => (

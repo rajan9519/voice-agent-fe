@@ -41,7 +41,7 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: "20+", label: "Languages" },
+  { value: "40+", label: "Languages" },
   { value: "<1s", label: "Latency" },
   { value: "99%", label: "Accuracy" },
   { value: "Free", label: "To try" },
@@ -307,7 +307,7 @@ export default function HomePage() {
             <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: "#1C2B1E" }}>
               <Mic className="w-3 h-3 text-white" />
             </div>
-            <span className="text-sm font-semibold" style={{ color: "#1C2B1E" }}>LinguaLive</span>
+            <span className="text-sm font-semibold" style={{ color: "#1C2B1E" }}>Aivimo</span>
           </div>
           <p className="text-xs" style={{ color: "#7A8C7E" }}>
             Real-time audio translation for everyone.

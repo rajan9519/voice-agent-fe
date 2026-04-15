@@ -3,9 +3,9 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
-  title: "LinguaLive — Real-time Audio Translation",
+  title: "Aivimo — Real-time Audio Translation",
   description:
-    "Real-time voice translation for conversations, travel, and language learning. Speak and get instant translations in 20+ languages.",
+    "Real-time voice translation for conversations, travel, and language learning. Speak and get instant translations in 40+ languages.",
 };
 
 export default function RootLayout({

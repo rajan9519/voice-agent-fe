@@ -11,7 +11,7 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/translate", label: "Live Translate" },
-    { href: "/upload", label: "Upload & Translate" },
+    // { href: "/upload", label: "Upload & Translate" },
   ];
 
   return (

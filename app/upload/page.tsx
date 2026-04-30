@@ -208,14 +208,14 @@ export default function UploadPage() {
     <div className="min-h-screen pt-16" style={{ background: "#F6F4EE" }}>
       <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h1 className="text-2xl font-bold tracking-tight" style={{ color: "#1C2B1E" }}>
             Upload & Translate
           </h1>
           <p className="text-sm mt-1" style={{ color: "#6B7C6D" }}>
             Upload audio files to transcribe and translate them into any language
           </p>
-        </div>
+        </div> */}
 
         {/* Language selector */}
         <div className="rounded-2xl p-5 mb-6 border" style={{ background: "#FDFCF8", borderColor: "#D6D1C4", boxShadow: "0 1px 4px rgba(28,43,30,0.06)" }}>

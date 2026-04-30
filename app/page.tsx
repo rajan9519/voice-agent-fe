@@ -100,14 +100,14 @@ export default function HomePage() {
               Start Translating
               <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
+            {/* <Link
               href="/upload"
               className="inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 text-sm font-semibold border transition-all hover:opacity-80"
               style={{ background: "#FDFCF8", color: "#1C2B1E", borderColor: "#D6D1C4" }}
             >
               <Upload className="w-4 h-4" />
               Upload Audio
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -287,14 +287,14 @@ export default function HomePage() {
                 <Mic className="w-4 h-4" />
                 Start Speaking Now
               </Link>
-              <Link
+              {/* <Link
                 href="/upload"
                 className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold border transition-colors hover:opacity-80"
                 style={{ background: "#2E4231", color: "#D0E4D8", borderColor: "#3D6B4F" }}
               >
                 <Upload className="w-4 h-4" />
                 Upload Audio File
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
